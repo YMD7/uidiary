@@ -1,0 +1,64 @@
+- if user_signed_in?
+  = link_to "#{app_path(params[:id])}/edit", class: "secret-link" do
+    %span edit
+#content
+  #header
+    #icon
+      %img{:src => @icon_dir + @app.icon_filename, :alt => ""}
+    #title
+      %div
+        %span.cat= ActiveSupport::JSON.decode(@app.genre)[0]
+        %span.update= "記事更新日: #{@app.updated_at.strftime("%Y年%-m月%-d日")}"
+      %h2= @app.name
+      %h3= @app.developer
+    #dl_btn
+      = link_to @app.url, :target => "_blank" do
+        %span Download
+      %span= "最新バージョン: " + @app.current_version
+  - @versions.each do |version|
+    .ver
+      %h4<
+        バージョン:
+        %span>= " #{version.version}"
+      - i_videos = version.videos.where(typeof: 'local')
+      - unless i_videos.empty?
+        .interact
+          .header インタラクション
+          .row
+            - i_videos.each_with_index do |i_video, i|
+              .rect-wrapper
+                .inner
+                  .screen.top
+                    .status
+                      %span *
+                      %span= "Interaction #{i + 1}"
+                      %span status
+                  .screen.ctl.ready
+                    %svg.play{:viewBox => "0 0 20 20"}
+                      %polygon{:points => "1,0 20,10 1,20"}
+                    %svg.pause.hidden
+                      %rect{:x => 1, :width => 6, :height => 20}
+                      %rect{:x => 13, :width => 6, :height => 20}
+                  .screen.bottom
+                    .cap
+                      %span= i_video.title
+                  %video{:class => "mov#{i + 1}", :poster => "/assets/#{@app.product_id}/#{version.version}/thumb_#{i_video.id}.png", :controls => false}
+                    %source{:src => "/assets/#{@app.product_id}/#{version.version}/#{i_video.id}.mp4", :type => 'video/mp4'}
+                    %source{:src => "/assets/#{@app.product_id}/#{version.version}/#{i_video.id}.webm", :type => 'video/webm'}
+      - d_videos = version.videos.where(typeof: 'vimeo')
+      - unless d_videos.empty?
+        .demo
+          .header デモムービー
+          .row
+            - d_videos.each_with_index do |d_video, i|
+              %div
+                .screen.top
+                  .status
+                    %span *
+                    %span= "Demo Movie #{i + 1}"
+                    %span status
+                .screen.bottom
+                  .cap
+                    %p -
+                - vimeo_id = d_video.url.match(/[0-9]+$/)[0]
+                = vimeo_iframe(vimeo_id, i + 1)

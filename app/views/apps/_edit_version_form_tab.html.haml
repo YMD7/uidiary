@@ -1,0 +1,73 @@
+%ul.accordion-tabs-minimal
+  - if @versions.exists?
+    %li.tab-header-and-content
+      %a{:href => "#", :class => "tab-link is-active"} 動画を追加
+      .tab-content
+        .ver
+          = form_for @version, url: {action: 'create'}, html: {class: 'add-video-form'} do |f|
+            -# 自動挿入されるパラメータ
+            = f.hidden_field :app_id, :value => @app.id
+            = hidden_field_tag 'add_version', false
+            
+            -# 入力フォーム
+            .version
+              %span.label version
+              - versions = @versions.uniq.order('version DESC').pluck('version')
+              = f.select :version, options_for_select(versions), class: 'input'
+
+            = f.fields_for :videos do |v|
+              .typeof
+                %span.label type
+                = v.label :typeof, 'local'
+                = v.radio_button :typeof, 'local', :class => 'video-type', checked: 'checked'
+                = v.label :typeof, 'vimeo'
+                = v.radio_button :typeof, 'vimeo', :class => 'video-type'
+              .title
+                %span.label ビデオタイトル
+                = v.text_field :title
+              .video.local
+                %span file
+                = v.fields_for :video_sources do |s|
+                  - formats = ['webm', 'mp4']
+                  %span{class: 'label untarget'}= formats[s.index]
+                  = s.file_field :file, :disabled => false
+              .video.vimeo.hidden
+                %span vimeo_url
+                = v.text_field :url, :disabled => true
+            .actions
+              = f.submit 'Add'
+  %li.tab-header-and-content
+    %a{:href => "#", :class => "tab-link"} バージョンを追加
+    .tab-content
+      .ver
+        = form_for @version, url: {action: 'create'}, html: {class: 'add-video-form'} do |f|
+          -# 自動挿入されるパラメータ
+          = f.hidden_field :app_id, :value => @app.id
+          
+          -# 入力フォーム
+          .version
+            %span 新しいバージョン
+            = f.text_field :version
+
+          = f.fields_for :videos do |v|
+            .typeof
+              %span type
+              = v.label :typeof, 'local'
+              = v.radio_button :typeof, 'local', :class => 'video-type', checked: 'checked'
+              = v.label :typeof, 'vimeo'
+              = v.radio_button :typeof, 'vimeo', :class => 'video-type'
+            .title
+              %span ビデオタイトル
+              = v.text_field :title
+            .video.local
+              %span file
+              = v.fields_for :video_sources do |s|
+                - formats = ['webm', 'mp4']
+                %span{class: 'label untarget'}= formats[s.index]
+                = s.file_field :file, :disabled => false
+            .video.vimeo.hidden
+              = v.fields_for :video_source do |s|
+                %span vimeo_url
+                = s.text_field :url, :disabled => true
+          .actions
+            = f.submit 'Add'

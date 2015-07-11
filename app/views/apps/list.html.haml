@@ -1,0 +1,12 @@
+.row
+  - @apps.each do |app|
+    .app
+      %a{:href => "/apps/#{app.product_id}/edit"}
+        %img{:src => @icon_dir + app.icon_filename, :alt => ""}
+      .info
+        %h2= app.name
+        %h3= app.developer
+      .list
+        - Version.where(app_id: app.id).each do |version|
+          .item
+            %span.version= version.version

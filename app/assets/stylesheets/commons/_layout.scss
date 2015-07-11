@@ -1,0 +1,346 @@
+@charset "utf-8";
+
+// --------------------------------
+//                     + import +
+// --------------------------------
+@import "variables";
+
+// --------------------------------
+//                     + reset +
+// --------------------------------
+html, body,
+h1, h2, h3, h4, h5,
+p, a {
+  margin: 0;
+  color: $ud_dark_gray;
+  font-family: $hiragino;
+  text-decoration: none;
+}
+h1, h2, h3, h4, h5 {
+  font-weight: normal;
+}
+
+// --------------------------------
+//                     + general +
+// --------------------------------
+html {
+  background: image-url("grid-ptn.gif") #fff;
+}
+body {
+  border-top: 3px solid $ud_blue;
+}
+.hidden {
+  display: none !important;
+}
+
+// --------------------------------
+//                     + header +
+// --------------------------------
+header {
+  z-index: 100;
+  background: #fff;
+  height: 83px;
+  padding-top: 12px;
+
+  .wrapper {
+    @include wrapper($ud_width);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(flex-start);
+  }
+  h1 {
+    display: inline-block;
+    z-index: 100;
+    background: #000;
+    @include size(158px 60px);
+    padding-top: 7px;
+    color: #fff;
+    font: {
+      family: 'Raleway', sans-serif;
+      weight: 200;
+      size: 36px;
+    }
+    text-align: center;
+
+    b {
+      font-weight: 500;
+    }
+  }
+  #user {
+    @include display(flex);
+    @include align-items(center);
+
+    margin-left: 20px;
+    
+    span {
+      display: block;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.15);
+      @include to_circle($ud_user_icon_size);
+      @include transition(all 0.1s linear);
+    }
+    img {
+      @include to_circle($ud_user_icon_size);
+    }
+    &:hover {
+      span {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// -- + mobile + -------------
+@include media($mobile) {
+  header {
+    height: 64px;
+    padding-top: 0;
+    
+    .wrapper {
+      @include wrapper(100%);
+      padding: 0;
+    }
+    a {
+      width: 100%;
+
+      h1 {
+        @include size(100% 60px);
+        padding-top: 10px;
+        font-size: 2rem;
+      }
+    }
+  } // header
+} // mobile
+
+// --------------------------------
+//                     + flash +
+// --------------------------------
+#flash {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+
+  p {
+    position: relative;
+    z-index: 0;
+    width: 42%;
+    margin: 24px auto;
+    font-size: 12px;
+  }
+}
+
+// --------------------------------
+//                     + main +
+// --------------------------------
+#main {
+  @include wrapper($ud_width);
+  padding: 0 32px 200px;
+}
+@include media($mobile) {
+  #main {
+    @include wrapper(100%);
+  }
+}
+
+// --------------------------------
+//                     + form +
+// --------------------------------
+form {
+  padding: 0 2px;
+  font: {
+    family: 'Raleway', sans-serif;
+  }
+  
+  > div {
+    margin-bottom: 6px;
+  }
+  label, .label {
+    padding-bottom: 1px;
+    font: {
+      size: 90%;
+    }
+  }
+  .input, input[type="text"], input[type="email"], input[type="password"] {
+    background: transparent;
+    @include border-width(0px 0px 1px 0px);
+    @include border-style(null null solid null);
+    @include border-color(null null #ccc null);
+    padding: 5px 6px 4px;
+    font-size: 14px;
+  }
+  .label-text {
+    @include outer-container();
+    @include display(flex);
+    @include align-items(flex-end);
+    
+    label,
+    .field_with_errors:first-child {
+      @include span-columns(4);
+    }
+    input,
+    .field_with_errors:nth-child(2) {
+      @include span-columns(8);
+      @include omega();
+    }
+    .field_with_errors {
+      border-bottom: 2px solid lighten(coral, 15%);
+
+      input {
+        border: none;
+        width: 100%;
+      }
+    }
+  }
+  .actions {
+    margin-top: 40px;
+
+    input[type="submit"] {
+      cursor: pointer;
+      border: none;
+      background: lighten($ud_blue, 50%);
+      padding: 1% 3%;
+      color: darken($ud_blue, 10%);
+      font: {
+        size: 18px;
+      }
+    }
+  }
+  > div.remember-me {
+    margin-top: 10px;
+
+    input[type="checkbox"] {
+      font-size: 20px;
+    }
+  }
+}
+
+
+// --------------------------------
+//                     + devise +
+// --------------------------------
+// -- + login + -------------
+#main.sessions,
+#main.registrations,
+#main.passwords {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+
+  .container {
+    border-top: 10px solid lighten($ud_blue, 12%);
+    background: rgba(245, 245, 245, 1.0);
+    width: 55%;
+    margin-top: 50px;
+    padding: 30px 20px 40px;
+
+    h2 {
+      border-bottom: 1px solid #ccc;
+      padding: 0 0 4px;
+      color: $ud_deep_black;
+      font: {
+        family: 'Raleway', sans-serif;
+        size: 28px;
+        weight: 500;
+      }
+    }
+    form {
+      margin-top: 20px;
+    }
+    #error_explanation {
+      border: 2px solid coral;
+      margin: 30px 0;
+
+      h2 {
+        font-size: 18px;
+        text-align: center;
+        border: none;
+        background-color: coral;
+      }
+      ul {
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+    }
+    a.back {
+      display: inline-block;
+      background: #ddd;
+      margin: 14px 0 0 2px;
+      padding: 2px 8px;
+      font-size: 12px;
+    }
+    input[type="submit"] {
+      &.delete-account {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        border: none;
+        background: #e5e5e5;
+        margin: 40px auto 0;
+        padding: 1% 15%;
+        color: darken(rgb(220, 20, 60), 10%);
+        font-size: 16px;
+        @include transition(all 0.1s linear);
+
+        &:hover {
+          background: rgb(230, 215, 220);
+        }
+      }
+    }
+  }
+}
+
+// -- + links + -------------
+#main {
+  #auth_links {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(flex-start);
+
+    margin-top: 10px;
+
+    > a {
+      color: $ud_blue;
+      font-size: 14px;
+      text-decoration: underline;
+    }
+  }
+}
+
+// -- + secret link + -------------
+.secret-link {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+
+  $c_size: 80px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  border: 3px solid #fff;
+  border-radius: $c_size;
+  background: darken($ud_blue, 18%);
+  @include size($c_size);
+  color: whitesmoke;
+  font-family: $gillsans;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+  @include transition(all 0.15s ease-out);
+
+  &:hover {
+    bottom: 16px;
+    background: lighten($ud_blue, 18%);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

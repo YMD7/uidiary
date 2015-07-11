@@ -1,3 +1,5 @@
+# coding: utf-8
+
 Uidiary::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -26,4 +28,7 @@ Uidiary::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # deviseの設定
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end

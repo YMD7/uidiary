@@ -1,0 +1,37 @@
+#content
+  %ul.accordion-tabs-minimal
+    %li.tab-header-and-content
+      %a{:href => "#", :class => "tab-link is-active"} アプリを追加
+      .tab-content
+        #search_form
+          = form_tag({:controller => 'apps', :action => 'new'}, :remote => true) do
+            = label_tag :app_id, 'id'
+            = text_field_tag :app_id
+            = submit_tag '検索', :id => 'search_button'
+        #result.hidden
+          #header
+            #icon
+              %img{:src => "", :alt => ""}
+            #title
+              %div
+                %span.cat カテゴリ
+              %h2 name
+              %h3 dev
+            #dl_btn
+              = form_for @app, url: {action: 'add'} do |f|
+                = f.hidden_field :product_id
+                = f.submit 'Add This App'
+    - unless @reserved_apps.empty?
+      %li.tab-header-and-content
+        %a{:href => "#", :class => "tab-link"} 公開待ちのアプリ
+        .tab-content.reserved-apps
+          - @reserved_apps.each do |app|
+            %div
+              .icon
+                %img{:src => @icon_dir + app.icon_filename, :alt => ""}
+              %h2= app.name
+              .edit-link
+                = link_to "#{app_path(app.product_id)}/edit" do
+                  %span edit
+= link_to root_path, class: "secret-link" do
+  %span back to index

@@ -1,0 +1,14 @@
+= link_to app_path(params[:id]), class: "secret-link" do
+  %span back to app
+#header
+  #icon
+    %img{:src => @icon_dir + @app.icon_filename, :alt => ""}
+  #title
+    %div
+      %span.cat= ActiveSupport::JSON.decode(@app.genre)[0]
+      - update_date = @app.updated_at.strftime("%Y年%-m月%-d日")
+      %span.update= "記事更新日: #{update_date}"
+    %h2= @app.name
+    %h3= @app.developer
+#content.apps-edit
+  = render 'edit_version_form_tab'

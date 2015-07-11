@@ -1,0 +1,327 @@
+// --------------------------------
+//                     + texture +
+// --------------------------------
+@mixin texture($gradient-angle, $bg-color-1, $bg-color-2, $texture-number, $inverted) { $texture-list: 
+  "paper.png"             // Fabric and paper
+  "rice_paper.png"
+  "noise_lines.png"
+  "fabric_plaid.png"
+  "first_aid_kit.png"
+  "texturetastic_gray.png"
+  "lil_fiber.png"
+  "tex2res5.png"
+  "skin_side_up.png"
+  "light_noise_diagonal.png"
+  "chruch.png"
+  "45degreee_fabric.png"
+  "bgnoise_lg.png"
+  "little_pluses.png"
+  "squairy_light.png"
+  "white_texture.png"
+  "binding_light.png"
+  "double_lined.png"      // Grid, mesh and squares
+  "grid.png"
+  "absurdidad.png"
+  "grid_noise.png"
+  "fancy_deboss.png"
+  "graphy.png"
+  "noise_pattern_with_crosslines.png"
+  "old_mathematics.png"
+  "ps_neutral.png"
+  "subtle_freckles.png"
+  "wavegrid.png"
+  "az_subtle.png"
+  "tiny_grid.png"
+  "wavegrid.png"
+  "gridme.png"
+  "noisy_grid.png"
+  "subtlenet2.png"
+  "white_carbon.png"
+  "lghtmesh.png"
+  "p5.png"                 // Dots
+  "worn_dots.png"
+  "subtle_dots.png"
+  "brillant.png"
+  "farmer.png"
+  "retina_dust.png"        // Lines
+  "pinstripe.png"
+  "line_horizontal1.png"
+  "line_horizontal2.png"
+  "linen.png" 
+  "vintage_speckles.png"   // Patina and irregular
+  "subtle_grunge.png"
+  "old_wall.png"
+  "brushed.png"
+  "stucco.png"
+  "mooning.png"
+  "husk.png"
+  "concrete_wall_2.png"
+  "noisy.png"
+  "concrete_wall_3.png"
+  "subtle_surface.png"
+  "dust.png"
+  "light_alu.png"
+  "corrugation.png" 
+  "kindajean.png"           // Diagonal
+  "line_diagonal1.png"
+  "line_diagonal2.png"
+  "groovepaper.png"
+  "brushed_alu.png"
+  "rough_diagonal.png"
+  "diagonal-noise.png"
+  "cross_scratches.png"
+  "striped_lens.png"
+  "debut_light.png"
+  "diagonal_waves.png"    // Special
+  "honey_im_subtle.png"
+  "pw_maze_white.png"
+  "subtle_zebra_3d.png"
+  "white_wave.png"
+  "circles.png"
+  "crosses.png"
+  "grilled.png"
+  "pw_pattern.png"
+  "struckaxiom.png"
+  "vichy.png"
+  "wavecut.png"
+  "whitey.png"
+  "cream_pixels.png"
+  "grey.png"
+  "shinedotted.png"
+  "stacked_circles.png"
+  "noisy_grid_simple.png";
+
+  @if ($inverted == 1) {
+    @include background(url("https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/textures/#{nth($texture-list, $texture-number)}"), linear-gradient($gradient-angle, $bg-color-1, $bg-color-2), center no-repeat $bg-color-1 scroll);
+  }
+
+  @else {
+    @include background(url("https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/textures/inverted/#{nth($texture-list, $texture-number)}"), linear-gradient($gradient-angle, $bg-color-1, $bg-color-2), center no-repeat $bg-color-1 scroll);
+  }
+}
+
+
+// --------------------------------
+//                     + badge +
+// --------------------------------
+$badge-font-size: 0.70em !default;
+$medium-gray: #999 !default;
+$alert-color: #fff6bf !default;
+$error-color: #fbe3e4 !default;
+$notice-color: #e5edf8 !default;
+$success-color: #e6efc2 !default;
+
+@mixin badge($color: $medium-gray) {
+  background-color: $color;
+  border-radius: $badge-font-size * 4;
+  color: darken($color, 60%);
+  display: inline-block;
+  font-size: $badge-font-size;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.3em 1.1em;
+}
+
+
+// --------------------------------
+//                     + tab +
+// --------------------------------
+.accordion-tabs-minimal {
+  $base-border-color: gainsboro !default;
+  $base-background-color: whitesmoke !default;
+  $base-spacing: 1.5em !default;
+  $action-color: #477DCA !default;
+  $base-link-color: $action-color !default;
+  $dark-gray: #333 !default;
+  $medium-screen: em(640) !default;
+  $tab-link-color: $dark-gray;
+  $tab-border: 1px solid $base-border-color;
+  $tab-active-background: $base-background-color;
+  $tab-inactive-color: darken($base-background-color, 10%);
+  $tab-inactive-hover-color: silver;
+  $tab-mode: $medium-screen;
+
+  @include clearfix;
+  line-height: 1.5;
+  padding: 0;
+
+  li.tab-header-and-content {
+    list-style: none;
+
+    @include media($tab-mode) {
+      display: inline;
+    }
+  }
+
+  a.tab-link {
+    background-color: $tab-inactive-color;
+    border-top: $tab-border;
+    color: $tab-link-color;
+    display: block;
+    font-weight: 400;
+    padding: ($base-spacing / 2) $gutter;
+    text-decoration: none;
+
+    @include media($tab-mode) {
+      @include inline-block;
+      border-top: 0;
+    }
+
+    &:hover {
+      color: $base-link-color;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.is-active {
+      background-color: $base-background-color;
+      border-bottom: 0;
+
+      @include media($tab-mode) {
+        border: $tab-border;
+        border-bottom-color: $tab-active-background;
+        margin-bottom: -1px;
+      }
+    }
+  }
+
+  .tab-content {
+    display: none;
+    padding: $base-spacing $gutter;
+    width: 100%;
+
+    @include media($tab-mode) {
+      border-top: $tab-border;
+      float: left;
+    }
+  }
+}
+
+
+// --------------------------------
+//                     + flashes +
+// --------------------------------
+$base-spacing: 1.2em !default;
+$alert-color: #fff6bf !default;
+$error-color: #fbe3e4 !default;
+$notice-color: #e5edf8 !default;
+$success-color: #e6efc2 !default;
+
+@mixin flash($color) {
+  border: 2px solid darken($color, 20%);
+  background-color: $color;
+  color: darken($color, 60%);
+  display: block;
+  font-weight: 600;
+  margin-bottom: $base-spacing / 2;
+  padding: $base-spacing / 2;
+  text-align: center;
+
+  a {
+    color: darken($color, 70%);
+    text-decoration: underline;
+
+    &:focus,
+    &:hover {
+      color: darken($color, 90%);
+    }
+  }
+}
+
+.alert {
+  @include flash($alert-color);
+}
+
+.error {
+  @include flash($error-color);
+}
+
+.notice {
+  @include flash($notice-color);
+}
+
+.success {
+  @include flash($success-color);
+}
+
+
+// --------------------------------
+//                     + tooltip +
+// --------------------------------
+.tooltip-item {  
+  $base-border-color: gainsboro !default;
+  $base-border-radius: 3px !default;
+  $base-line-height: 1.5em !default;
+  $dark-gray: #333 !default;
+  $base-font-color: $dark-gray !default;  
+  $tooltip-background: #1d1d1d;
+  $tooltip-color: white;
+  $tooltip-width: 12em;
+  $tooltip-arrow-width: 8px;
+  $tooltip-shadow: 0 2px 2px silver;
+  $tooltip-distance-from-item: 70px;
+  $tooltip-arrow-distance-from-box: 0em;
+  
+  position: relative;
+
+  &:focus,
+  &:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .tooltip {
+    @include position(absolute, $tooltip-distance-from-item 0 0 -4.4em);
+    @include transition (all 0.2s ease-in-out);
+    border: 1px solid white;
+    background-color: $tooltip-background;
+    background: $tooltip-background;
+    color: $tooltip-color;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    margin: 0 auto;
+    width: $tooltip-width;
+    height: 74px;
+    opacity: 0;
+    padding: 0.4em;
+    text-align: center;
+    visibility: hidden;
+    z-index: 10;
+
+    p {
+      color: white;
+      line-height: $base-line-height;
+      margin: 0;
+
+      a {
+        display: block;
+        border-bottom: 1px solid #444;
+        padding: 4px 0;
+        color: white;
+        font-size: 12px;
+
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover {
+          background: #333;
+        }
+      }
+    }
+
+    &:before {
+      @include position(absolute, -24px 0 null 0);
+      border: $tooltip-arrow-width solid transparent;
+      bottom: $tooltip-arrow-distance-from-box;
+      height: 32px;
+      color: $tooltip-background;
+      content: '▲';
+      font-size: 1.4em;
+      margin-left: 0;
+      text-align: center;
+    }
+  }
+}
+

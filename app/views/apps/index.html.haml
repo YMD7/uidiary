@@ -1,0 +1,17 @@
+- if user_signed_in?
+  = link_to new_app_path, class: "secret-link" do
+    %span add
+.row
+  - @apps.each do |app|
+    .spacer
+    .card
+      %a{:href => "/apps/#{app.product_id}"}
+        .bg{:style => "background-image:url(#{@icon_dir}#{app.icon_filename})"}
+        .mask
+          .white
+          .desc
+            %h2= app.name
+            %h3= app.developer
+            %span= app.updated_at.strftime("%Y年%-m月%-d日 更新")
+        %span
+          %img{:src => @icon_dir + app.icon_filename, :alt => ""}

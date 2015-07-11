@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %title UI Diary
+    %meta{ name: 'viewport', content: 'width=device-width,initial-scale=1' }
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Raleway:200,500"
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = favicon_link_tag
+    = csrf_meta_tags
+  %body
+    - unless flash.empty?
+      #flash
+        - flash.each do |type, message|
+          %p{:class => type}
+            = message
+    %header
+      .wrapper
+        = link_to root_path do
+          %h1<
+            UI
+            %b>= " diary"
+        - if user_signed_in?
+          #user.tooltip-item
+            %span
+            %img{:src => "/assets/user_icons/kyo_yamada.jpg", :alt => ""}/
+            .tooltip
+              %p
+                = link_to 'Profile', edit_user_registration_path
+                = link_to 'Log out', destroy_user_session_path, method: :delete
+    %section{:id => 'main', :class => [controller.controller_name, controller.action_name]}
+      = yield

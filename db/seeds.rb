@@ -1,7 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# coding: utf-8
+
+require 'open-uri'
+
+# テーブルレコードの削除
+App.delete_all
+
+product_ids = [
+  930026670,
+  815181808,
+  577232024,
+  728293409,
+  357421934,
+  794729836,
+  893927401,
+  320606217,
+  733772494,
+  935672069,
+  333903271,
+  389801252
+]
+
+product_ids.each {|id|
+  Utils::AppUtil.new("itunes", product_id).save_app
+}

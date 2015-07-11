@@ -19,5 +19,14 @@ module Uidiary
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # タイムゾーンを東京(JST +9:00)に設定
+    # config.time_zone = 'Tokyo'
+    # config.active_record.default_timezone = :local
+
+    # to auto load lib/ directory
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
   end
 end

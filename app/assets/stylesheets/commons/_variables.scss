@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+// ==========================================================================
+//  Colors
+// ==========================================================================
+$ud_blue: #176a9e;
+$ud_pink: #eb6060;
+$ud_cat_text: #908c19;
+$ud_dark_gray: #303030;
+$ud_deep_black: #1d1d1d;
+$ud_attention_color: #f8d530;
+$ud_attention_text: #7e6d1b;
+$ud_attention_border_color: #ffed9b;
+$ud_white_gray: #e7e7e7;
+$ud_gray_blue: #7f96a4;
+$ud_dark_pink: #aa3030;
+$ud_gray_pink: #9e7373;
+$ud_green: #58e92c;
+$ud_green_text: #37bf20;
+$ud_screen_top_color: rgba(255, 255, 255, 0.2);
+$ud_screen_bottom_color: rgba(0, 0, 0, 0.3);
+
+$ud_card_border_color: #f4f4f4;
+$ud_card_app_artist_text_color: #62c9eb;
+
+
+
+// ==========================================================================
+//  Size
+// ==========================================================================
+$ud_width: 1024px;
+$ud_icon_radius_ratio: 4.2;
+
+$ud_card_height: 346px;
+$ud_small_icon_size: 76px;
+$ud_card_desc_height: 90px;
+
+$ud_large_icon_size: 130px;
+$ud_video_size: 242px 428px;
+$ud_video_width: 242px;
+$ud_video_height: 428px;
+$ud_status_height: 24px;
+$ud_cap_height: 72px;
+$ud_user_icon_size: 48px;
+$blur_size: 23px;
+
+// -- + mobile + -------------
+$mobile: new-breakpoint(max-width 980px, 4);
+
+
+
+// ==========================================================================
+//  font
+// ==========================================================================
+$hiragino: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", $helvetica;
+$gillsans: "Gill Sans", $lucida-grande;
+
+
+
+// ==========================================================================
+//  Function
+// ==========================================================================
+@mixin wrapper($wrapper_size) {
+  max-width: $wrapper_size;
+  margin: 0 auto;
+  padding: 0 4px;
+}
+@mixin to_icon($size: $ud_small_icon_size) {
+  @include calc(border-radius, #{$size} / #{$ud_icon_radius_ratio});
+  @include size($size);
+}
+@mixin ud_screen_top_texture() {
+  @include texture(180deg, $ud_screen_top_color, $ud_screen_top_color, 63, 0);
+}
+@mixin ud_screen_bottom_texture() {
+  @include texture(180deg, $ud_screen_bottom_color, $ud_screen_bottom_color, 63, 1);
+}
+@mixin to_circle($size) {
+  @include calc(border-radius, #{$size} / 2);
+  @include size($size);
+}
+@mixin appearance_reset() {
+  @include appearance(none);
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+}

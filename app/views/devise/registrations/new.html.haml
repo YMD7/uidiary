@@ -1,0 +1,20 @@
+.container
+  %h2 サインアップ
+  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    .label-text
+      = f.label :username
+      = f.text_field :username, autofocus: true, placeholder: 'Pablo Picasso'
+    .label-text
+      = f.label :email
+      = f.email_field :email, placeholder: 'user@example.com'
+    .label-text
+      = f.label :password
+      - if len = @minimum_password_length
+        = f.password_field :password, autocomplete: "off", :placeholder => "英数 #{len}文字以上"
+    .label-text
+      = f.label :password_confirmation, 'Password(*)'
+      = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'パスワード再入力'
+    .actions
+      = f.submit "サインアップ"
+  = render "devise/shared/links"
