@@ -12,7 +12,12 @@ gem 'jbuilder', '1.0.2'
 gem 'haml-rails'
 gem 'bourbon'
 gem 'neat'
+
+# Install dependances of 'rmagick' before you 'bundle install' at your first time
+# sudo yum -y install ImageMagick
+# sudo yum -y install ImageMagick-devel
 gem 'rmagick'
+
 gem 'carrierwave'
 gem 'carrierwave-video-thumbnailer'
 gem 'devise'
