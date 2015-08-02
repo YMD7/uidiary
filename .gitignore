@@ -20,3 +20,6 @@ doc/
 
 # Ignore original video files. (.mov)
 /design/resource/videos
+
+# Ignore app_icons
+/app/assets/images/app_icons
