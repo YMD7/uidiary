@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  require 'FileUtils'
+  require 'fileutils'
 
   before_action :before_action
   before_action :authenticate_user!, :except => [:show, :index]

@@ -2,7 +2,7 @@
 
 class Utils::AppUtil
   require 'open-uri'
-  require 'FileUtils'
+  require 'fileutils'
   require 'rmagick'
 
   def initialize(platform, id)

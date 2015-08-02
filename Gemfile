@@ -12,6 +12,7 @@ gem 'jbuilder', '1.0.2'
 gem 'haml-rails'
 gem 'bourbon'
 gem 'neat'
+gem 'devise'
 
 # Install dependances of 'rmagick' before you 'bundle install' at your first time
 # sudo yum -y install ImageMagick
@@ -20,10 +21,11 @@ gem 'rmagick'
 
 gem 'carrierwave'
 gem 'carrierwave-video-thumbnailer'
-gem 'devise'
+
+gem 'streamio-ffmpeg'
 
 group :development, :test do
-  # 参考：http://ruby-rails.hatenadiary.com/entry/20150108/1420721205
+  # 参考: http://ruby-rails.hatenadiary.com/entry/20150108/1420721205
   gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
   gem 'pry-doc'    # methodを表示
   gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
