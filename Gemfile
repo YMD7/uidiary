@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 gem 'rails', '4.0.5'
+
+# Install dependances of 'sqlite3' before you 'bundle install' at your first time
+# sudo yum install sqlite-devel
 gem 'sqlite3'
 gem 'sass-rails'
 gem 'uglifier', '2.1.1'
