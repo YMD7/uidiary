@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.2'
 
 gem 'rails', '4.0.5'
 gem 'sqlite3'
