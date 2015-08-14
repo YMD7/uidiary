@@ -7,6 +7,7 @@ ruby '2.2.2'
 # You can install Node.js for it
 # http://www.unixmen.com/install-node-js-centos-7
 gem 'rails', '4.0.5'
+gem 'unicorn'
 
 # Install dependances of 'sqlite3' before you 'bundle install' at your first time
 # sudo yum install sqlite-devel
