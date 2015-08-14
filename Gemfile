@@ -3,6 +3,9 @@
 source 'https://rubygems.org'
 ruby '2.2.2'
 
+# Need JavaScript runtime for 'execjs'
+# You can install Node.js for it
+# http://www.unixmen.com/install-node-js-centos-7
 gem 'rails', '4.0.5'
 
 # Install dependances of 'sqlite3' before you 'bundle install' at your first time
