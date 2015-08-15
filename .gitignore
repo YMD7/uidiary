@@ -25,4 +25,4 @@ doc/
 /app/assets/images/app_icons
 
 # Ignore video assets
-/app/assets/videos
+#/app/assets/videos
