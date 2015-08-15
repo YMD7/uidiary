@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class VideoUploader < CarrierWave::Uploader::Base
-  
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -59,8 +59,8 @@ class VideoUploader < CarrierWave::Uploader::Base
     @product_id = App.find(app_id).product_id
 
     # rootにあるスクリーンショットファイルをリネーム
-    # binding.pry
     if file.content_type = "video/mp4" && File.exist?("#{Rails.root}/ss.png") then
+      FileUtils.mkdir_p("#{store_dir}") unless Dir.exist?("#{store_dir}")
       File.rename("#{Rails.root}/ss.png", "#{store_dir}/thumb_#{model.video_id}.png")
     end
 
