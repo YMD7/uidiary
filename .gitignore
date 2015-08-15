@@ -23,3 +23,6 @@ doc/
 
 # Ignore app_icons
 /app/assets/images/app_icons
+
+# Ignore video assets
+/app/assets/videos
