@@ -26,3 +26,4 @@ doc/
 
 # Ignore video assets
 /app/assets/videos
+/public/videos
