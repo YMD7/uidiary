@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :index]
 
   def index
-    @apps = App.joins(:versions)
+    @apps = App.all
   end
 
   def list
@@ -19,7 +19,7 @@ class AppsController < ApplicationController
 
   def new
     @app = App.new
-    
+
     sql = []
     Version.select('app_id') do |v|
       sql.push(v.app_id)
