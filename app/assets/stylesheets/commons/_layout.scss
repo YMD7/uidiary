@@ -93,7 +93,7 @@ header {
 // -- + mobile + -------------
 @include media($mobile) {
   header {
-    height: 64px;
+    height: 60px;
     padding-top: 0;
     
     .wrapper {
@@ -107,6 +107,24 @@ header {
         @include size(100% 60px);
         padding-top: 10px;
         font-size: 2rem;
+      }
+    }
+    #user {
+      position: absolute;
+      top: (60px - $ud_user_icon_size * 0.85) / 2 + 3px;
+      right: 2%;
+      margin-left: 0;
+
+      span, img {
+        @include to_circle($ud_user_icon_size * 0.85);
+      }
+      .tooltip {
+        left: -9.0em;
+
+        &:before {
+          right: 4px;
+          text-align: right;
+        }
       }
     }
   } // header
@@ -332,6 +350,13 @@ form {
     background: lighten($ud_blue, 18%);
   }
 }
+
+// -- + mobile + -------------
+@include media($mobile) {
+  .secret-link {
+
+  }
+} // mobile
 
 
 
