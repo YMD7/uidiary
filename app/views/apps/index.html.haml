@@ -3,7 +3,6 @@
     %span add
 .row
   - @apps.each do |app|
-    .spacer
     .card
       %a{:href => "/apps/#{app.product_id}"}
         .bg{:style => "background-image:url(#{@icon_dir}#{app.icon_filename})"}
