@@ -227,12 +227,12 @@
   // --------------------------------
   //                     + header +
   // --------------------------------
-  #header {
+  #header, .header {
     @include display(flex);
     @include justify-content(space-between);
     margin-bottom: 24px;
     
-    #icon {
+    #icon, .icon {
       width: $ud_large_icon_size;
     
       img {
@@ -240,7 +240,7 @@
       }
     }
 
-    #title {
+    #title, .title {
       width: 470px;
       margin-top: 1px;
       
@@ -277,7 +277,7 @@
       }
     }
 
-    #dl_btn {
+    #dl_btn, .dl-btn {
       @include display(flex);
       @include flex-direction(column);
       @include align-items(center);
@@ -922,6 +922,9 @@
     #search_form {
       padding: 15px 0;
 
+      form {
+        margin-bottom: 10px;
+      }
       label {
         font-size: 16px;
       }
@@ -937,11 +940,13 @@
         font-size: 14px;
       }
     }
-
-    #result {
+    .result {
       margin-top: 30px;
       
-      #dl_btn {
+      .title {
+        padding-left: 20px;
+      }
+      .dl-btn {
         form {
           @include display(flex);
           @include flex-direction(column);
@@ -949,6 +954,7 @@
           width: 260px;
 
           input[type="submit"] {
+            cursor: pointer;
             border-color: #fff;
             background: darken($ud_blue, 18%);
             color: #fff;
@@ -960,7 +966,38 @@
         }
       }
     }
+    .result.term {
+      .header {
+        .icon {
+          width: $ud_small_icon_size;
+        
+          img {
+            @include to_icon($ud_small_icon_size);
+          }
+        }
+        .title {
+          > div span.cat {
+            font-size: 14px;
+          }
+          h2 {
+            overflow: hidden;
+            height: 28px;
+            margin: 0 0 8px;
+            font-size: 24px;
+          }
+        }
+        .dl-btn {
+          .insert-id {
+            cursor: pointer;
+            margin-top: 18px;
 
+            &:hover {
+              margin-top: 12px;
+            }
+          }
+        }
+      }
+    }
     .reserved-apps {
       > div {
         @include display(flex);

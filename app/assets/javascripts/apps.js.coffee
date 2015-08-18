@@ -145,38 +145,83 @@ $ ->
   # --------------------------------
   #                     + add app +
   # --------------------------------
-  $('#search_button').click ->
+  $('#search_form .search_button').click ->
     $('#result').addClass('hidden')
 
-    id = $('#app_id').val()
-    url = "https://itunes.apple.com/lookup?id=" + id + "&country=jp"
+    search_type = $(@).attr("id")
+    
+    id   = $('#app_id').val()
+    term = $('#term').val()
 
-    if id is ""
-      alert('idを入力してください')
+    switch search_type
+      when "id_button" then url = "https://itunes.apple.com/lookup?id=" + id + "&country=jp"
+      when "term_button" then url = "https://itunes.apple.com/search?term=" + term + "&media=software&country=jp&limit=10&offset=1"
+
+    if id is "" and term is ""
+      alert('値を入力してください')
     else
       $.ajax({url: url, async: true, dataType: 'jsonp',
       success: (res) ->
         console.log('success!')
-        renderResult (res.results[0])
-        $('#result').fadeIn(500)
-        $('#result').removeClass('hidden')
+        if search_type is "id_button"
+          renderIdResult (res.results[0])
+          $('.result.id').fadeIn(500)
+          $('.result.id').removeClass('hidden')
+        if search_type is "term_button"
+          renderTermResult (res.results)
+          $('.result.term').fadeIn(500)
+          $('.result.term').removeClass('hidden')
       error: ->
         alert('error')
       })
 
-    renderResult = (res) ->
+    renderIdResult = (res) ->
+      $('.result.term').children().remove()
+
       name     = res.trackName
       dev      = res.artistName
       genre    = res.genres[0]
       version  = res.version
       icon_url = res.artworkUrl512
 
-      $('#icon img').attr('src', icon_url)
-      $('#title h2').text(name)
-      $('#title h3').text(dev)
-      $('#title .cat').text(genre)
+      $('.result.id .icon img').attr('src', icon_url)
+      $('.result.id .title h2').text(name)
+      $('.result.id .title h3').text(dev)
+      $('.result.id .title .cat').text(genre)
 
       $('#app_product_id').val(id)
+
+    renderTermResult = (res) ->
+      $('.result.id').addClass('hidden')
+      $('.result.term').children().remove()
+
+      for app, i in res
+        name       = app.trackName
+        dev        = app.artistName
+        genre      = app.genres[0]
+        product_id = app.trackId
+        icon_url   = app.artworkUrl512
+        $("
+          <div class=\"header\">
+            <div class=\"icon\">
+              <img src=\"#{icon_url}\" alt=\"\">
+            </div>
+            <div class=\"title\">
+              <div>
+                <span class=\"cat\">#{app.genres[0]}</span>
+              </div>
+              <h2>#{app.trackName}</h2>
+              <h3>#{app.artistName}</h3>
+            </div>
+            <div class=\"dl-btn\">
+              <input type=\"submit\" class=\"insert-id\" value=\"Insert Id\" onclick=\"$('#app_id').val(#{product_id});\" />
+            </div>
+          </div>
+          "
+        ).appendTo('.result.term')
+
+  $('.result.term input.insert-id').click ->
+    alert hoge
       
 
 

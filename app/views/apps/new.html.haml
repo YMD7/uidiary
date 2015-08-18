@@ -4,23 +4,30 @@
       %a{:href => "#", :class => "tab-link is-active"} アプリを追加
       .tab-content
         #search_form
-          = form_tag({:controller => 'apps', :action => 'new'}, :remote => true) do
+          = form_tag({:controller => 'apps', :action => 'new'}, :remote => true, :class => 'id_search') do
+            = hidden_field_tag 'search_type_id', 'id'
             = label_tag :app_id, 'id'
             = text_field_tag :app_id
-            = submit_tag '検索', :id => 'search_button'
-        #result.hidden
-          #header
-            #icon
+            = submit_tag '検索', :id => 'id_button', :class => 'search_button'
+          = form_tag({:controller => 'apps', :action => 'new'}, :remote => true, :class => 'term_search') do
+            = hidden_field_tag 'search_type_term', 'term'
+            = label_tag :term, '単語'
+            = text_field_tag :term
+            = submit_tag '検索', :id => 'term_button', :class => 'search_button'
+        .result.id.hidden
+          .header
+            .icon
               %img{:src => "", :alt => ""}
-            #title
+            .title
               %div
                 %span.cat カテゴリ
               %h2 name
               %h3 dev
-            #dl_btn
+            .dl-btn
               = form_for @app, url: {action: 'add'} do |f|
                 = f.hidden_field :product_id
                 = f.submit 'Add This App'
+        .result.term.hidden
     - unless @reserved_apps.empty?
       %li.tab-header-and-content
         %a{:href => "#", :class => "tab-link"} 公開待ちのアプリ
