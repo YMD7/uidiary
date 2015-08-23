@@ -45,7 +45,9 @@ $ud_user_icon_size: 48px;
 $blur_size: 23px;
 
 // -- + mobile + -------------
-$mobile: new-breakpoint(max-width 980px, 4);
+$desktop: new-breakpoint(min-width 880px 12);
+$tablet:  new-breakpoint(min-width 768px 12);
+$mobile:  new-breakpoint(max-width 750px 12);
 
 
 

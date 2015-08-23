@@ -12,9 +12,6 @@
     @include outer-container();
 
     .card {
-      @include span-columns(4);
-      @include omega(3n);
-
       position: relative;
       overflow: hidden;
       border: 1px solid $ud_card_border_color;
@@ -88,6 +85,28 @@
     }
   }
 }
+// -- + desktop + -------------
+@include media($desktop) {
+  #main.apps.index {
+    .row {
+      .card {
+        @include span-columns(4);
+        @include omega(3n);
+      }
+    }
+  }
+} // desktop
+// -- + tablet + -------------
+@include media($tablet) {
+  #main.apps.index {
+    .row {
+      .card {
+        @include span-columns(4);
+        @include omega(3n);
+      }
+    }
+  }
+} // tablet
 // -- + mobile + -------------
 @include media($mobile) {
   #main.apps.index {
@@ -95,11 +114,13 @@
 
     .row {
       width: 100%;
+      padding: 0 2%;
 
       .card {
-        @include span-columns(2);
-        @include omega(1n);
+        @include span-columns(6);
+        @include omega(2n);
         height: 150px;
+        margin-bottom: 28px;
 
         .bg, .mask {
           height: 150px;
@@ -117,12 +138,18 @@
             text-align: center;
 
             h2 {
-              font-size: 12px;
+              padding: 2px;
+              font-size: 11px;
             }
             h3 {
               display: none;
             }
           }
+        }
+        &:hover .mask .white {
+          $height: inherit;
+          @include size(100% $height);
+          background: rgba(255, 255, 255, 0.9);
         }
         a > span {
           top: (120px - $ud_small_icon_size) / 2 + 2px;
