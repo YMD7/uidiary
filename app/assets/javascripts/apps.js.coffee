@@ -244,13 +244,6 @@ $ ->
   #                     + show +
   # --------------------------------
 
-  # -- + video shutter effect + -------------
-  $('#main.apps.show .ver .interact .row .inner .screen').on 'click', ->
-    attr = $(@).nextAll('video')[0].play()
-
-
-
-
 
 
 

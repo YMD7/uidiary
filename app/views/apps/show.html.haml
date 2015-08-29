@@ -44,7 +44,7 @@
                   .screen.bottom
                     .cap
                       %span= i_video.title
-                  %video{:class => "mov#{i + 1}", :poster => "/videos/#{@app.product_id}/#{version.version}/thumb_#{i_video.id}.png", :controls => false, :preload => 'none'}
+                  %video{:class => "mov#{i + 1}", :poster => "/videos/#{@app.product_id}/#{version.version}/thumb_#{i_video.id}.png", :controls => false}
                     %source{:src => "/videos/#{@app.product_id}/#{version.version}/#{i_video.id}.mp4", :type => 'video/mp4'}
                     %source{:src => "/videos/#{@app.product_id}/#{version.version}/#{i_video.id}.webm", :type => 'video/webm'}
       - d_videos = version.videos.where(typeof: 'vimeo')

@@ -468,12 +468,14 @@
           video {
             @include size($ud_video_size);
           }
-          &:hover {
-            .screen.top {
-              height: $ud_status_height;
-            }
-            .screen.bottom {
-              height: $ud_cap_height;
+          @include media($desktop) {
+            &:hover {
+              .screen.top {
+                height: $ud_status_height;
+              }
+              .screen.bottom {
+                height: $ud_cap_height;
+              }
             }
           }
         } // .inner
@@ -693,22 +695,15 @@
 
               .screen {
                 width: 100%;
-                height: 50%;
 
                 &.top {
                   top: 0;
-
-                  &:hover {
-                    height: 0%;
-                  }
+                  height: 0;
                 }
                 &.bottom {
                   overflow: hidden;
                   bottom: 0;
-
-                  &:hover {
-                    height: 0%;
-                  }
+                  height: 13%;
                 }
                 .status, .cap {
                   @include display(flex);
@@ -734,16 +729,13 @@
                   }
                 }
                 .cap {
-                  height: 25%;
+                  height: 100%;
                   padding: 0 1%;
                   font-size: 11px;
                 }
               }
-              &:hover {
-                .screen.top,
-                .screen.bottom {
-                  height: 0;
-                }
+              video, iframe {
+                opacity: 0.8;
               }
             }
           }
