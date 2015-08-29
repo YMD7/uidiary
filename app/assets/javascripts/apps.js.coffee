@@ -230,13 +230,25 @@ $ ->
   #  ++ touch event ++
   #
   # ==========================================================================
-  _touch = if ('ontouchstart' of document) then 'touchstart' else 'click'
 
-  $('#main > div > div.card > a > div.mask > div.white').on _touch, ->
-    $(@).animate({background: "rgba(255, 255, 255, 0.25)"}, 100)
+  # --------------------------------
+  #                     + index +
+  # --------------------------------
+
+  # -- + icon touch effect + -------------
+  $('#main > div > div.card > a > div.mask > div.white').on 'click', ->
+    $(@).animate({background: "rgba(255, 255, 255, 0.25)"}, 500)
 
 
+  # --------------------------------
+  #                     + show +
+  # --------------------------------
 
+  # -- + video shutter effect + -------------
+  $('#main.apps.show .interact .inner .tap-to-play').on 'click', ->
+    $(@).parent('.screen.top').nextAll('video')[0].play()
+
+  
 
 
 

@@ -12,9 +12,6 @@
     @include outer-container();
 
     .card {
-      @include span-columns(4);
-      @include omega(3n);
-
       position: relative;
       overflow: hidden;
       border: 1px solid $ud_card_border_color;
@@ -88,6 +85,28 @@
     }
   }
 }
+// -- + desktop + -------------
+@include media($desktop) {
+  #main.apps.index {
+    .row {
+      .card {
+        @include span-columns(4);
+        @include omega(3n);
+      }
+    }
+  }
+} // desktop
+// -- + tablet + -------------
+@include media($tablet) {
+  #main.apps.index {
+    .row {
+      .card {
+        @include span-columns(4);
+        @include omega(3n);
+      }
+    }
+  }
+} // tablet
 // -- + mobile + -------------
 @include media($mobile) {
   #main.apps.index {
@@ -95,11 +114,13 @@
 
     .row {
       width: 100%;
+      padding: 0 2%;
 
       .card {
-        @include span-columns(2);
-        @include omega(1n);
+        @include span-columns(6);
+        @include omega(2n);
         height: 150px;
+        margin-bottom: 28px;
 
         .bg, .mask {
           height: 150px;
@@ -117,12 +138,18 @@
             text-align: center;
 
             h2 {
-              font-size: 12px;
+              padding: 2px;
+              font-size: 11px;
             }
             h3 {
               display: none;
             }
           }
+        }
+        &:hover .mask .white {
+          $height: inherit;
+          @include size(100% $height);
+          background: rgba(255, 255, 255, 0.9);
         }
         a > span {
           top: (120px - $ud_small_icon_size) / 2 + 2px;
@@ -227,20 +254,22 @@
   // --------------------------------
   //                     + header +
   // --------------------------------
-  #header, .header {
+  #header_bg {
+    display: none;
+  }
+  #header {
     @include display(flex);
     @include justify-content(space-between);
     margin-bottom: 24px;
     
-    #icon, .icon {
+    #icon {
       width: $ud_large_icon_size;
     
       img {
         @include to_icon($ud_large_icon_size);
       }
     }
-
-    #title, .title {
+    #title {
       width: 470px;
       margin-top: 1px;
       
@@ -277,7 +306,7 @@
       }
     }
 
-    #dl_btn, .dl-btn {
+    #dl_btn {
       @include display(flex);
       @include flex-direction(column);
       @include align-items(center);
@@ -366,16 +395,18 @@
           .screen {
             position: absolute;
             z-index: 10;
-            @include box-sizing(border-box);
-            border-left: 1px solid #f4f4f4;
-            border-right: 1px solid #f4f4f4;
             width: 242px;
             @include calc(height, $ud_video_height / 2);
             @include transition(all 0.3s $ease-out-quart);
 
             &.top {
               top: 0;
-              border-top: 1px solid #f4f4f4;
+
+              @include media($desktop) {
+                .tap-to-play {
+                  display: none;
+                }
+              }
             }
             &.ctl {
               cursor: pointer;
@@ -395,19 +426,18 @@
             }
             &.bottom {
               bottom: 0;
-              border-bottom: 1px solid #f4f4f4;
             }
             .status, .cap {
               @include display(flex);
               @include align-items(center);
               position: absolute;
               z-index: 20;
+              background: rgba(255, 255, 255, 0.9);
               width: 100%;
               font-family: $hiragino;
             }
             .status {
               @include justify-content(flex-end);
-              border-bottom: 1px solid #f4f4f4;
               height: $ud_status_height;
               padding: 0 8px;
               font-size: 12px;
@@ -443,18 +473,19 @@
           }
           video {
             @include size($ud_video_size);
-            @include appearance(none);
           }
-          &:hover {
-            .screen.top {
-              height: $ud_status_height;
-            }
-            .screen.bottom {
-              height: $ud_cap_height;
+          @include media($desktop) {
+            &:hover {
+              .screen.top {
+                height: $ud_status_height;
+              }
+              .screen.bottom {
+                height: $ud_cap_height;
+              }
             }
           }
-        }
-      }
+        } // .inner
+      } // .rect-wrapper
     }
     // common
     
@@ -464,7 +495,7 @@
         border-bottom: 2px solid $ud_blue;
         color: $ud_gray_blue;
       }
-      .row > div {
+      .row .rect-wrapper .inner {
 
         .screen {
           @include ud_screen_top_texture();
@@ -495,7 +526,7 @@
         &:hover .screen.ctl.pause{
           display: block;
         }
-      }
+      } // .row .rect-wrapper .inner
     } // interact
 
     // -- + demo + -------------
@@ -504,7 +535,7 @@
         border-bottom: 2px solid $ud_dark_pink;
         color: $ud_gray_pink;
       }
-      .row > div .screen {
+      .row .rect-wrapper .inner .screen {
         @include ud_screen_bottom_texture();
 
         .status span:nth-child(2) {
@@ -513,7 +544,7 @@
         .status span:last-child {
           background: $ud_dark_pink;
         }
-      }
+      } // .row .rect-wrapper .inner .screen
     } // demo
   } // versions
 }
@@ -521,16 +552,36 @@
 // -- + mobile + -------------
 @include media($mobile) {
   #main.apps.show {
-    padding-top: 5%;
+    padding: 0;
 
     // --------------------------------
     //                     + header +
     // --------------------------------
+    #header_bg {
+      @include display(flex);
+      @include justify-content(center);
+
+      position: absolute;
+      overflow: hidden;
+      z-index: -10;
+      @include size(100% 45%);
+      
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include size(100% auto);
+        @include filter(blur($blur_size));
+        @include transform(scale(1.3));
+      }
+    }
     #header {
       @include display(flex);
-      @include flex-direction(row);
+      @include flex-direction(column);
+      @include align-items(center);
       @include flex-wrap(wrap);
       margin-bottom: 24px;
+      padding-top: 14%;
       
       #icon {
         @include order(1);
@@ -542,9 +593,10 @@
       }
       #title {
         @include order(3);
+        background: #fff;
         width: 100%;
-        margin: 8% 0 5%;
-        padding-left: 1%;
+        margin: 6% 0 5%;
+        padding: 3% 3%;
         
         > div {
           @include display(flex);
@@ -584,7 +636,7 @@
         @include display(flex);
         @include flex-direction(column);
         @include align-items(center);
-        width: 55%;
+        width: 70%;
 
         a, input {
           @include display(flex);
@@ -594,7 +646,7 @@
           background: $ud_attention_color;
           width: 100%;
           height: 44px;
-          margin-top: 17%;
+          margin-top: 14%;
           font-size: 1.1rem;
           @include transition(all 0.15s ease-out);
 
@@ -614,174 +666,137 @@
     // --------------------------------
     // -- + common + -------------
     .ver {
-      background: #fff;
+      padding: 0 4px;
       
       h4 {
-        margin-bottom: 5%;
-        font-size: 0.8rem;
-
-        span {
-          font-size: 1.0rem;
-        }
+        margin-bottom: 20px;
       }
       > div {
-        padding: 0 2%;
+        position: relative;
+        padding: 0 8px;
 
         .header {
-          margin-bottom: 6%;
+          margin-bottom: 16px;
+          font-size: 14px;
         }
-      }
-      .row {
-        @include outer-container();
-        padding-bottom: 12%;
+        .row {
+          position: relative;
 
-        .rect-wrapper {
-          @include span-columns(2);
-          height: auto;
-
-          &:before {
-            content: "";
-            display: block;
-            padding-top: 150%;
-          }
-          .inner {
-            @include display(flex);
-            @include flex-direction(column);
-            @include justify-content(center);
-
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            margin-bottom: 10%;
-
-            .screen {
-              width: 100%;
-              height: 50%;
-              
-              &.top {
-                top: 0;
-              }
-              &.ctl {
-                display: none;
-                top: 50%;
-                left: 50%;
-                margin-top: -20px;
-                margin-left: -32px;
-                
-                svg {
-                  fill: #000;
-                  @include size(20px);
-                  margin-top: 8px;
-                }
-              }
-              &.bottom {
-                bottom: 0;
-              }
-              .status, .cap {
-                @include display(flex);
-                @include align-items(center);
-                position: absolute;
-                z-index: 20;
-                background: rgba(255, 255, 255, 0.9);
-                width: 100%;
-                font-family: $hiragino;
-              }
-              .status {
-                span:nth-child(2) {
-                  font-size: 0.6rem;
-                }
-                span:last-child {
-                  border-radius: 6px;
-                  @include size(6px);
-                  margin-top: 0;
-                }
-              }
-              .cap {
-                @include justify-content(center);
-                bottom: 0;
-                height: 10%;
-                padding: 0 1%;
-                font-size: 0.8rem;
-                text-align: center;
-              }
-            }
-            video {
-              @include size(100%);
-            }
-            &:hover {
-              .screen.top {
-                // height: $ud_status_height;
-              }
-              .screen.bottom {
-                // height: $ud_cap_height;
-              }
-            }
-          }
-        }
-      }
-      // common
-      
-      // -- + interact + -------------
-      .interact {
-        .header {
-          border-bottom: 2px solid $ud_blue;
-          color: $ud_gray_blue;
-        }
-        .row > div {
-
-          .screen {
-            @include ud_screen_top_texture();
+          .rect-wrapper {
+            @include span-columns(6);
+            position: relative;
             
-            &.ctl.pause {
-              display: none;
+            &:before {
+              content: "";
+              display: block;
+              padding-top: 150%;
             }
-            &.ctl {
-              background: rgba(255, 255, 255, 0.70);
+            .inner {
+              @include omega(2n);
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              margin-bottom: 10%;
 
-              &:hover {
-                border: 2px solid #fff;
-                background: #fff;
+              .screen {
+                width: 100%;
 
-                svg {
-                  fill: #000;
+                &.top {
+                  height: 70%;
+                }
+                &.bottom {
+                  height: 30%;
+                }
+                .status, .cap {
+                  @include display(flex);
+                  @include align-items(center);
+                  position: absolute;
+                  z-index: 20;
+                  background: rgba(255, 255, 255, 0.9);
+                  width: 100%;
+                  font-family: $hiragino;
+                }
+                .status {
+                  height: 16px;
+                  padding: 2px 4px 0;
+
+                  span:nth-child(2) {
+                    padding-right: 4px;
+                    font-size: 0.6rem;
+                  }
+                  span:last-child {
+                    border-radius: 6px;
+                    @include size(6px);
+                    margin-top: 0;
+                  }
+                }
+                .cap {
+                  height: 46%;
+                  padding: 0 1%;
+                  font-size: 11px;
                 }
               }
             }
-            .status span:nth-child(2) {
-              color: $ud_gray_blue;
+          }
+        }
+      }
+    } // common
+
+    // -- + interact + -------------
+    .ver .interact .row {
+      .rect-wrapper .inner {
+        .screen {
+          &.top {
+            .tap-to-play {
+              background-color: transparent;
+              @include size(64% 46%);
+              margin: 60% auto 0;
+              text-indent: -9999px;
             }
-            .status span:last-child {
-              background: $ud_blue;
+          }
+          &.ctl {
+            display: none;
+            top: 50%;
+            left: 50%;
+            margin-top: -20px;
+            margin-left: -32px;
+            
+            svg {
+              fill: #000;
+              @include size(20px);
+              margin-top: 8px;
             }
           }
+        }
+        video {
+          @include size(100%);
+        }
+      } // .rect-wrapper .inner
+    } // interact
 
-          &:hover .screen.ctl.pause{
-            display: block;
+    // -- + demo + -------------
+    .ver .demo .row {
+      .rect-wrapper .inner {
+        height: 100%;
+
+        .screen.top {
+          height: 0;
+        }
+        .screen.bottom {
+          height: 16%;
+
+          .cap {
+            height: 100%;
           }
         }
-      } // interact
-
-      // -- + demo + -------------
-      .demo {
-        .header {
-          border-bottom: 2px solid $ud_dark_pink;
-          color: $ud_gray_pink;
+        iframe {
+          width: 100%;
+          height: 100%;
         }
-        .row > div .screen {
-          @include ud_screen_bottom_texture();
-
-          .status span:nth-child(2) {
-            color: $ud_gray_pink;
-          }
-          .status span:last-child {
-            background: $ud_dark_pink;
-          }
-        }
-      } // demo
-    } // versions
-  }
+      }
+    } // demo
+  } // #main.apps.show
 } // mobile
 
 

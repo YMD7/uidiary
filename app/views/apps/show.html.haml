@@ -2,6 +2,8 @@
   = link_to "#{app_path(params[:id])}/edit", class: "secret-link" do
     %span edit
 #content
+  #header_bg
+    %img{:src => @icon_dir + @app.icon_filename, :alt => ""}
   #header
     #icon
       %img{:src => @icon_dir + @app.icon_filename, :alt => ""}
@@ -33,6 +35,8 @@
                       %span *
                       %span= "Interaction #{i + 1}"
                       %span status
+                    .tap-to-play
+                      タップして再生
                   .screen.ctl.ready
                     %svg.play{:viewBox => "0 0 20 20"}
                       %polygon{:points => "1,0 20,10 1,20"}
@@ -42,7 +46,7 @@
                   .screen.bottom
                     .cap
                       %span= i_video.title
-                  %video{:class => "mov#{i + 1}", :poster => "/videos/#{@app.product_id}/#{version.version}/thumb_#{i_video.id}.png", :controls => false}
+                  %video{:class => "mov#{i + 1}", :poster => "/videos/#{@app.product_id}/#{version.version}/thumb_#{i_video.id}.png", :controls => false, preload: 'none'}
                     %source{:src => "/videos/#{@app.product_id}/#{version.version}/#{i_video.id}.mp4", :type => 'video/mp4'}
                     %source{:src => "/videos/#{@app.product_id}/#{version.version}/#{i_video.id}.webm", :type => 'video/webm'}
       - d_videos = version.videos.where(typeof: 'vimeo')
@@ -51,14 +55,15 @@
           .header デモムービー
           .row
             - d_videos.each_with_index do |d_video, i|
-              %div
-                .screen.top
-                  .status
-                    %span *
-                    %span= "Demo Movie #{i + 1}"
-                    %span status
-                .screen.bottom
-                  .cap
-                    %p -
-                - vimeo_id = d_video.url.match(/[0-9]+$/)[0]
-                = vimeo_iframe(vimeo_id, i + 1)
+              .rect-wrapper
+                .inner
+                  .screen.top
+                    .status
+                      %span *
+                      %span= "Demo Movie #{i + 1}"
+                      %span status
+                  .screen.bottom
+                    .cap
+                      %p -
+                  - vimeo_id = d_video.url.match(/[0-9]+$/)[0]
+                  = vimeo_iframe(vimeo_id, i + 1)
