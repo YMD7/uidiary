@@ -119,6 +119,8 @@
       .card {
         @include span-columns(6);
         @include omega(2n);
+
+        border-radius: 2px;
         height: 150px;
         margin-bottom: 28px;
 
