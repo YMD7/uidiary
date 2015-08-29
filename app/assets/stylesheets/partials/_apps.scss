@@ -401,6 +401,12 @@
 
             &.top {
               top: 0;
+
+              @include media($desktop) {
+                .tap-to-play {
+                  display: none;
+                }
+              }
             }
             &.ctl {
               cursor: pointer;
@@ -697,13 +703,10 @@
                 width: 100%;
 
                 &.top {
-                  top: 0;
-                  height: 0;
+                  height: 70%;
                 }
                 &.bottom {
-                  overflow: hidden;
-                  bottom: 0;
-                  height: 13%;
+                  height: 30%;
                 }
                 .status, .cap {
                   @include display(flex);
@@ -729,13 +732,10 @@
                   }
                 }
                 .cap {
-                  height: 100%;
+                  height: 46%;
                   padding: 0 1%;
                   font-size: 11px;
                 }
-              }
-              video, iframe {
-                opacity: 0.8;
               }
             }
           }
@@ -747,6 +747,14 @@
     .ver .interact .row {
       .rect-wrapper .inner {
         .screen {
+          &.top {
+            .tap-to-play {
+              background-color: transparent;
+              @include size(64% 46%);
+              margin: 60% auto 0;
+              text-indent: -9999px;
+            }
+          }
           &.ctl {
             display: none;
             top: 50%;
@@ -772,13 +780,19 @@
       .rect-wrapper .inner {
         height: 100%;
 
+        .screen.top {
+          height: 0;
+        }
+        .screen.bottom {
+          height: 16%;
+
+          .cap {
+            height: 100%;
+          }
+        }
         iframe {
           width: 100%;
           height: 100%;
-
-          #player > div.controls-wrapper > div.controls > button {
-            z-index: 999;
-          }
         }
       }
     } // demo

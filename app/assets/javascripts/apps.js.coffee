@@ -244,6 +244,12 @@ $ ->
   #                     + show +
   # --------------------------------
 
+  # -- + video shutter effect + -------------
+  $('#main.apps.show .interact .inner .tap-to-play').on 'click', ->
+    $(@).parent('.screen.top').nextAll('video')[0].play()
+
+  
+
 
 
 
