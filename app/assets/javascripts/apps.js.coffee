@@ -230,8 +230,23 @@ $ ->
   #  ++ touch event ++
   #
   # ==========================================================================
+
+  # --------------------------------
+  #                     + index +
+  # --------------------------------
+
+  # -- + icon touch effect + -------------
   $('#main > div > div.card > a > div.mask > div.white').on 'click', ->
     $(@).animate({background: "rgba(255, 255, 255, 0.25)"}, 500)
+
+
+  # --------------------------------
+  #                     + show +
+  # --------------------------------
+
+  # -- + video shutter effect + -------------
+  $('#main.apps.show .ver .interact .row .inner .screen').on 'click', ->
+    attr = $(@).nextAll('video')[0].play()
 
 
 

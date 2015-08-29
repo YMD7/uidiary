@@ -254,12 +254,12 @@
   // --------------------------------
   //                     + header +
   // --------------------------------
-  #header, .header {
+  #header {
     @include display(flex);
     @include justify-content(space-between);
     margin-bottom: 24px;
     
-    #icon, .icon {
+    #icon {
       width: $ud_large_icon_size;
     
       img {
@@ -267,7 +267,7 @@
       }
     }
 
-    #title, .title {
+    #title {
       width: 470px;
       margin-top: 1px;
       
@@ -304,7 +304,7 @@
       }
     }
 
-    #dl_btn, .dl-btn {
+    #dl_btn {
       @include display(flex);
       @include flex-direction(column);
       @include align-items(center);
@@ -393,16 +393,12 @@
           .screen {
             position: absolute;
             z-index: 10;
-            @include box-sizing(border-box);
-            border-left: 1px solid #f4f4f4;
-            border-right: 1px solid #f4f4f4;
             width: 242px;
             @include calc(height, $ud_video_height / 2);
             @include transition(all 0.3s $ease-out-quart);
 
             &.top {
               top: 0;
-              border-top: 1px solid #f4f4f4;
             }
             &.ctl {
               cursor: pointer;
@@ -422,19 +418,18 @@
             }
             &.bottom {
               bottom: 0;
-              border-bottom: 1px solid #f4f4f4;
             }
             .status, .cap {
               @include display(flex);
               @include align-items(center);
               position: absolute;
               z-index: 20;
+              background: rgba(255, 255, 255, 0.9);
               width: 100%;
               font-family: $hiragino;
             }
             .status {
               @include justify-content(flex-end);
-              border-bottom: 1px solid #f4f4f4;
               height: $ud_status_height;
               padding: 0 8px;
               font-size: 12px;
@@ -470,7 +465,6 @@
           }
           video {
             @include size($ud_video_size);
-            @include appearance(none);
           }
           &:hover {
             .screen.top {
@@ -480,8 +474,8 @@
               height: $ud_cap_height;
             }
           }
-        }
-      }
+        } // .inner
+      } // .rect-wrapper
     }
     // common
     
@@ -491,7 +485,7 @@
         border-bottom: 2px solid $ud_blue;
         color: $ud_gray_blue;
       }
-      .row > div {
+      .row .rect-wrapper .inner {
 
         .screen {
           @include ud_screen_top_texture();
@@ -522,7 +516,7 @@
         &:hover .screen.ctl.pause{
           display: block;
         }
-      }
+      } // .row .rect-wrapper .inner
     } // interact
 
     // -- + demo + -------------
@@ -531,7 +525,7 @@
         border-bottom: 2px solid $ud_dark_pink;
         color: $ud_gray_pink;
       }
-      .row > div .screen {
+      .row .rect-wrapper .inner .screen {
         @include ud_screen_bottom_texture();
 
         .status span:nth-child(2) {
@@ -540,7 +534,7 @@
         .status span:last-child {
           background: $ud_dark_pink;
         }
-      }
+      } // .row .rect-wrapper .inner .screen
     } // demo
   } // versions
 }
@@ -641,174 +635,138 @@
     // --------------------------------
     // -- + common + -------------
     .ver {
-      background: #fff;
       
       h4 {
-        margin-bottom: 5%;
-        font-size: 0.8rem;
-
-        span {
-          font-size: 1.0rem;
-        }
+        margin-bottom: 20px;
       }
       > div {
-        padding: 0 2%;
+        position: relative;
+        padding: 0 8px;
 
         .header {
-          margin-bottom: 6%;
+          margin-bottom: 16px;
+          font-size: 14px;
         }
-      }
-      .row {
-        @include outer-container();
-        padding-bottom: 12%;
+        .row {
+          position: relative;
 
-        .rect-wrapper {
-          @include span-columns(2);
-          height: auto;
-
-          &:before {
-            content: "";
-            display: block;
-            padding-top: 150%;
-          }
-          .inner {
-            @include display(flex);
-            @include flex-direction(column);
-            @include justify-content(center);
-
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            margin-bottom: 10%;
-
-            .screen {
-              width: 100%;
-              height: 50%;
-              
-              &.top {
-                top: 0;
-              }
-              &.ctl {
-                display: none;
-                top: 50%;
-                left: 50%;
-                margin-top: -20px;
-                margin-left: -32px;
-                
-                svg {
-                  fill: #000;
-                  @include size(20px);
-                  margin-top: 8px;
-                }
-              }
-              &.bottom {
-                bottom: 0;
-              }
-              .status, .cap {
-                @include display(flex);
-                @include align-items(center);
-                position: absolute;
-                z-index: 20;
-                background: rgba(255, 255, 255, 0.9);
-                width: 100%;
-                font-family: $hiragino;
-              }
-              .status {
-                span:nth-child(2) {
-                  font-size: 0.6rem;
-                }
-                span:last-child {
-                  border-radius: 6px;
-                  @include size(6px);
-                  margin-top: 0;
-                }
-              }
-              .cap {
-                @include justify-content(center);
-                bottom: 0;
-                height: 10%;
-                padding: 0 1%;
-                font-size: 0.8rem;
-                text-align: center;
-              }
-            }
-            video {
-              @include size(100%);
-            }
-            &:hover {
-              .screen.top {
-                // height: $ud_status_height;
-              }
-              .screen.bottom {
-                // height: $ud_cap_height;
-              }
-            }
-          }
-        }
-      }
-      // common
-      
-      // -- + interact + -------------
-      .interact {
-        .header {
-          border-bottom: 2px solid $ud_blue;
-          color: $ud_gray_blue;
-        }
-        .row > div {
-
-          .screen {
-            @include ud_screen_top_texture();
+          .rect-wrapper {
+            @include span-columns(6);
+            position: relative;
             
-            &.ctl.pause {
-              display: none;
+            &:before {
+              content: "";
+              display: block;
+              padding-top: 150%;
             }
-            &.ctl {
-              background: rgba(255, 255, 255, 0.70);
+            .inner {
+              @include omega(2n);
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              margin-bottom: 10%;
 
+              .screen {
+                width: 100%;
+                height: 50%;
+
+                &.top {
+                  top: 0;
+
+                  &:hover {
+                    height: 0%;
+                  }
+                }
+                &.bottom {
+                  overflow: hidden;
+                  bottom: 0;
+
+                  &:hover {
+                    height: 0%;
+                  }
+                }
+                .status, .cap {
+                  @include display(flex);
+                  @include align-items(center);
+                  position: absolute;
+                  z-index: 20;
+                  background: rgba(255, 255, 255, 0.9);
+                  width: 100%;
+                  font-family: $hiragino;
+                }
+                .status {
+                  height: 16px;
+                  padding: 2px 4px 0;
+
+                  span:nth-child(2) {
+                    padding-right: 4px;
+                    font-size: 0.6rem;
+                  }
+                  span:last-child {
+                    border-radius: 6px;
+                    @include size(6px);
+                    margin-top: 0;
+                  }
+                }
+                .cap {
+                  height: 25%;
+                  padding: 0 1%;
+                  font-size: 11px;
+                }
+              }
               &:hover {
-                border: 2px solid #fff;
-                background: #fff;
-
-                svg {
-                  fill: #000;
+                .screen.top,
+                .screen.bottom {
+                  height: 0;
                 }
               }
             }
-            .status span:nth-child(2) {
-              color: $ud_gray_blue;
+          }
+        }
+      }
+    } // common
+
+    // -- + interact + -------------
+    .ver .interact .row {
+      .rect-wrapper .inner {
+        .screen {
+          &.ctl {
+            display: none;
+            top: 50%;
+            left: 50%;
+            margin-top: -20px;
+            margin-left: -32px;
+            
+            svg {
+              fill: #000;
+              @include size(20px);
+              margin-top: 8px;
             }
-            .status span:last-child {
-              background: $ud_blue;
-            }
-          }
-
-          &:hover .screen.ctl.pause{
-            display: block;
           }
         }
-      } // interact
-
-      // -- + demo + -------------
-      .demo {
-        .header {
-          border-bottom: 2px solid $ud_dark_pink;
-          color: $ud_gray_pink;
+        video {
+          @include size(100%);
         }
-        .row > div .screen {
-          @include ud_screen_bottom_texture();
+      } // .rect-wrapper .inner
+    } // interact
 
-          .status span:nth-child(2) {
-            color: $ud_gray_pink;
-          }
-          .status span:last-child {
-            background: $ud_dark_pink;
+    // -- + demo + -------------
+    .ver .demo .row {
+      .rect-wrapper .inner {
+        height: 100%;
+
+        iframe {
+          width: 100%;
+          height: 100%;
+
+          #player > div.controls-wrapper > div.controls > button {
+            z-index: 999;
           }
         }
-      } // demo
-    } // versions
-  }
+      }
+    } // demo
+  } // #main.apps.show
 } // mobile
 
 
