@@ -789,25 +789,28 @@
 
     // -- + demo + -------------
     .ver .demo .row {
-      .rect-wrapper .inner {
-        height: 100%;
+      .rect-wrapper {
+        margin-bottom: 6%;
+        .inner {
+          height: 100%;
 
-        .screen.top {
-          height: 0;
-        }
-        .screen.bottom {
-          height: 16%;
+          .screen.top {
+            height: 0;
+          }
+          .screen.bottom {
+            height: 16%;
 
-          .cap {
+            .cap {
+              height: 100%;
+            }
+          }
+          iframe {
+            opacity: 0.80;
+            width: 100%;
             height: 100%;
           }
         }
-        iframe {
-          opacity: 0.80;
-          width: 100%;
-          height: 100%;
-        }
-      }
+      } // .rect-wrapper
     } // demo
   } // #main.apps.show
 } // mobile
