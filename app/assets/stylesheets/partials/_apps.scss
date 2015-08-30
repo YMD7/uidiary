@@ -572,7 +572,7 @@
       
       img {
         position: absolute;
-        top: -5%;
+        top: -12%;
         left: 0;
         @include size(100% auto);
         @include filter(blur($blur_size));

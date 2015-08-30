@@ -250,6 +250,33 @@ $ ->
 
   
 
+  # ==========================================================================
+  #
+  #  ++ video ++
+  #
+  # ==========================================================================
+
+  # -- + muted if device is mobile + -------------
+
+  ua = window.navigator.userAgent.toLowerCase()
+  muted = ->
+    
+    # Apple
+    if ua.indexOf('iphone') isnt -1 then return true
+    if ua.indexOf('ipod')   isnt -1 then return true
+    if ua.indexOf('ipad')   isnt -1 then return true
+
+    # Google
+    if ua.indexOf('Android') isnt -1 then return true
+
+    # Microsoft
+    if ua.indexOf('windows phone') isnt -1 then return true
+
+    return false
+
+  # $('video').attr({muted: ''}) if do muted
+  
+
 
 
 
