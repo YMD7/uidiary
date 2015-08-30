@@ -3,10 +3,10 @@
 module AppsHelper
 
   # Vimeo の iframe 要素をつくるヘルパー
-  def vimeo_iframe(id, index)
+  def vimeo_iframe(vimeo_id, index)
     attrs = {
-      :id => "player#{index}",
-      :src => "https://player.vimeo.com/video/#{id}?api=1&player_id=player#{index}",
+      :id => "vimeo_player#{index}",
+      :src => "https://player.vimeo.com/video/#{vimeo_id}?api=1&player_id=vimeo_player#{index}",
       :width => "242",
       :height => "428",
       :frameborder => "0",

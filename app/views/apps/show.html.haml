@@ -17,6 +17,7 @@
       = link_to @app.url, :target => "_blank" do
         %span Download
       %span= "最新バージョン: " + @app.current_version
+  - vimeo_pls = 0
   - @versions.each do |version|
     .ver
       %h4<
@@ -65,5 +66,6 @@
                   .screen.bottom
                     .cap
                       %p -
+                  - vimeo_pls += 1
                   - vimeo_id = d_video.url.match(/[0-9]+$/)[0]
-                  = vimeo_iframe(vimeo_id, i + 1)
+                  = vimeo_iframe(vimeo_id, vimeo_pls)

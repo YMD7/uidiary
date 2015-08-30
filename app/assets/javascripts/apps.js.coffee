@@ -10,9 +10,10 @@ $ ->
   #  - Vimeo動画のコントロール -
   #
 
-  $('.demo .row > div > iframe').each ->
+  $('#content .ver .demo .row iframe').each ->
     # プレイヤー要素などなど
     iframe = $(@)[0]
+    # console.log iframe
     player = $f(iframe)
     src    = $(@).attr('src')
     id     = src.match(/[0-9]+/)[0]
@@ -34,7 +35,7 @@ $ ->
     vimeoOnFinish = ->
       screenTop.removeClass('hidden')
       screenBottom.removeClass('hidden')
-    vimeoOnPlayProgress = (data, id) ->
+    vimeoOnPlayProgress = ->
       screenTop.addClass('hidden')
       screenBottom.addClass('hidden')
     
@@ -275,7 +276,7 @@ $ ->
     return false
 
   # $('video').attr({muted: ''}) if do muted
-  
+
 
 
 
